@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Sat.Recruitment.Contracts;
+using Sat.Recruitment.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,11 +19,9 @@ namespace Sat.Recruitment.Api.Controllers
     [Route("[controller]")]
     public partial class UsersController : ControllerBase
     {
+        IServiceManager _serviceManager;
 
-        private readonly List<User> _users = new List<User>();
-        public UsersController()
-        {
-        }
+        public UsersController(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpPost]
         [Route("/create-user")]
@@ -39,7 +38,7 @@ namespace Sat.Recruitment.Api.Controllers
                     Errors = errors
                 };
 
-            var newUser = new User
+            var newUser = new UserDTO
             {
                 Name = name,
                 Email = email,
@@ -87,7 +86,7 @@ namespace Sat.Recruitment.Api.Controllers
             }
 
 
-            var reader = ReadUsersFromFile();
+            var _users = await _serviceManager.UserService.GetAllAsync();
 
             //Normalize email
             var aux = newUser.Email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
@@ -98,21 +97,8 @@ namespace Sat.Recruitment.Api.Controllers
 
             newUser.Email = string.Join("@", new string[] { aux[0], aux[1] });
 
-            while (reader.Peek() >= 0)
-            {
-                var line = reader.ReadLineAsync().Result;
-                var user = new User
-                {
-                    Name = line.Split(',')[0].ToString(),
-                    Email = line.Split(',')[1].ToString(),
-                    Phone = line.Split(',')[2].ToString(),
-                    Address = line.Split(',')[3].ToString(),
-                    UserType = line.Split(',')[4].ToString(),
-                    Money = decimal.Parse(line.Split(',')[5].ToString()),
-                };
-                _users.Add(user);
-            }
-            reader.Close();
+
+            
             try
             {
                 var isDuplicated = false;
@@ -189,14 +175,5 @@ namespace Sat.Recruitment.Api.Controllers
                 //Validate if Phone is null
                 errors = errors + " The phone is required";
         }
-    }
-    public class User
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public string UserType { get; set; }
-        public decimal Money { get; set; }
-    }
+    }    
 }

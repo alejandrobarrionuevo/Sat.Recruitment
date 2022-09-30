@@ -5,7 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using Sat.Recruitment.Domain.Repositories;
+using Sat.Recruitment.Persistence;
+using Sat.Recruitment.Services;
+using Sat.Recruitment.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,8 @@ namespace Sat.Recruitment.Api
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
