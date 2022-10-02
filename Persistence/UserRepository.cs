@@ -1,57 +1,65 @@
 ﻿using Sat.Recruitment.Contracts;
 using Sat.Recruitment.Domain.Entities;
 using Sat.Recruitment.Domain.Repositories;
+using Sat.Recruitment.Persistence.Files;
+using Sat.Recruitment.Services.Factories;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace Sat.Recruitment.Persistence
 {
     internal class UserRepository : IUserRepository
     {
-        public Task<IEnumerable<UserDTO>> GetAllAsync(CancellationToken cancellationToken = default)
+        const string fileName = "Users.txt";
+
+        private readonly UsersFactory _usersFactory; 
+
+        public UserRepository(UsersFactory usersFactory) { 
+            _usersFactory = usersFactory;           
+        }
+
+        public async Task<bool> Find(User user)
         {
-            List<UserDTO> result = new List<UserDTO>();
-            var reader = ReadUsersFromFile();
+            var users = await GetAllAsync();
+            return users.Contains(user);
+        }        
+
+        public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            List<User> result = new List<User>();
+            var reader = FileManager.ReadFromFile(fileName);
             while (reader.Peek() >= 0)
             {
-                var line = reader.ReadLineAsync().Result;
-                var user = new UserDTO
+                var line = await reader.ReadLineAsync();
+                var splitLine = line.Split(',');
+                var user = new UserDTO()
                 {
-                    Name = line.Split(',')[0].ToString(),
-                    Email = line.Split(',')[1].ToString(),
-                    Phone = line.Split(',')[2].ToString(),
-                    Address = line.Split(',')[3].ToString(),
-                    UserType = line.Split(',')[4].ToString(),
-                    Money = decimal.Parse(line.Split(',')[5].ToString()),
+                    Name = splitLine[0],
+                    Email = splitLine[1],
+                    Phone = splitLine[2],
+                    Address = splitLine[3],
+                    UserType = splitLine[4],
+                    Money = splitLine[5]
                 };
-                result.Add(user);
+
+                result.Add(_usersFactory.CreateUser(user));
             }
+
             reader.Close();
 
-            return Task.FromResult(result.AsEnumerable());
+            return result.AsEnumerable();
         }
 
-        public Task<UserDTO> GetByNameAsync(string userName, CancellationToken cancellationToken = default)
+        public async Task<bool> Insert(User user)
         {
-            throw new System.NotImplementedException();
+            string newLine = $"{user.Name},{user.Email},{user.Phone},{user.Address},{user.UserType},{user.Money}";
+            await FileManager.AddLine(fileName, newLine);
+            return true;
         }
 
-        public void Insert(UserDTO user)
-        {
-            
-        }
-
-        private StreamReader ReadUsersFromFile()
-        {
-            var path = Directory.GetCurrentDirectory() + "/Files/Users.txt";
-
-            FileStream fileStream = new FileStream(path, FileMode.Open);
-
-            StreamReader reader = new StreamReader(fileStream);
-            return reader;
-        }
+        
     }
 }
