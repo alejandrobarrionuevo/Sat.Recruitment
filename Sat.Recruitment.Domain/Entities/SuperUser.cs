@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Sat.Recruitment.Domain.Entities
+{
+    public class SuperUser : User
+    {
+        protected override void SetMoney(decimal money)
+            => this.money = money * (money > 100 ? 1.20M : 1);
+    }
+}

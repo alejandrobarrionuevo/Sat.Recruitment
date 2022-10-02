@@ -1,11 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30709.64
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Api", "Sat.Recruitment.Api\Sat.Recruitment.Api.csproj", "{1F342EA2-E7B1-4E53-AB93-9C62288D3FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Test", "Sat.Recruitment.Test\Sat.Recruitment.Test.csproj", "{42E696E9-2672-4B91-AD96-353A69F7219C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Test", "Sat.Recruitment.Test\Sat.Recruitment.Test.csproj", "{42E696E9-2672-4B91-AD96-353A69F7219C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{479E7EC4-11BB-4D95-9D07-250550D1525E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{4160587F-7B94-443A-ABA9-FDBA08B071AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Domain", "Sat.Recruitment.Domain\Sat.Recruitment.Domain.csproj", "{A379D33F-9B2D-47A1-B83F-9BF4A234A076}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Services", "Sat.Recruitment.Services\Sat.Recruitment.Services.csproj", "{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Persistence", "Persistence\Sat.Recruitment.Persistence.csproj", "{4385D2DF-E385-47F7-9513-AD62F1F19866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Services.Abstractions", "Sat.Recruitment.Services.Abstractions\Sat.Recruitment.Services.Abstractions.csproj", "{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sat.Recruitment.Contracts", "Sat.Recruitment.Contracts\Sat.Recruitment.Contracts.csproj", "{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +35,36 @@ Global
 		{42E696E9-2672-4B91-AD96-353A69F7219C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42E696E9-2672-4B91-AD96-353A69F7219C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42E696E9-2672-4B91-AD96-353A69F7219C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A379D33F-9B2D-47A1-B83F-9BF4A234A076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A379D33F-9B2D-47A1-B83F-9BF4A234A076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A379D33F-9B2D-47A1-B83F-9BF4A234A076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A379D33F-9B2D-47A1-B83F-9BF4A234A076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4385D2DF-E385-47F7-9513-AD62F1F19866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4385D2DF-E385-47F7-9513-AD62F1F19866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4385D2DF-E385-47F7-9513-AD62F1F19866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4385D2DF-E385-47F7-9513-AD62F1F19866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A379D33F-9B2D-47A1-B83F-9BF4A234A076} = {479E7EC4-11BB-4D95-9D07-250550D1525E}
+		{EE055FD7-4E7B-4835-AB21-9DAB8197FD1A} = {479E7EC4-11BB-4D95-9D07-250550D1525E}
+		{4385D2DF-E385-47F7-9513-AD62F1F19866} = {4160587F-7B94-443A-ABA9-FDBA08B071AC}
+		{831EDE73-81FC-475C-BACC-9AC3F2B3D0DB} = {479E7EC4-11BB-4D95-9D07-250550D1525E}
+		{1553E1C6-22FE-468D-9AE4-E2B0D6DD902A} = {479E7EC4-11BB-4D95-9D07-250550D1525E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2A05765-05B9-484D-8D3D-506849EB716F}
