@@ -29,7 +29,9 @@ namespace Sat.Recruitment.Services
             if (await FindAsync(user, cancellationToken))
                 throw new UserDuplicatedException();
 
-            var newUser = _usersFactory.CreateUser(user);                
+            var newUser = _usersFactory.CreateUser(user);
+
+            newUser.AddGift();
 
             return await _repositoryManager.UserRepository.Insert(newUser);
         }

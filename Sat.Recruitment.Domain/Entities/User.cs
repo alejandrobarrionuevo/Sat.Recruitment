@@ -7,6 +7,21 @@ namespace Sat.Recruitment.Domain.Entities
 {
     public abstract class User
     {
+        readonly decimal giftBase;
+        readonly decimal giftPercentage;
+
+        public User()
+        {
+            giftBase = 0;
+            giftPercentage = 0;
+        }
+
+        public User(decimal giftBase, decimal giftPercentage)
+        {
+            this.giftBase = giftBase;
+            this.giftPercentage = giftPercentage;
+        }
+
         public string Name { get; set; }
         string email;
         public string Email
@@ -16,15 +31,13 @@ namespace Sat.Recruitment.Domain.Entities
         }
         public string Address { get; set; }
         public string Phone { get; set; }
-        public string UserType { get; set; }
-        protected decimal money;
-        public decimal Money
-        {
-            get { return money; }
-            set { SetMoney(value); }
-        }
-
-        protected abstract void SetMoney(decimal money);
+        public string UserType { get; set; }        
+        public decimal Money { get; set; }
+        /// <summary>
+        /// Add a percentage gift of money to the account according to the amount of money and type of account
+        /// </summary>
+        public virtual void AddGift()
+        => Money *= Money > giftBase ? (1 + giftPercentage) : 1;
 
         public override bool Equals(object obj)
         {
