@@ -6,7 +6,11 @@ namespace Sat.Recruitment.Domain.Entities
 {
     public class SuperUser : User
     {
-        protected override void SetMoney(decimal money)
-            => this.money = money * (money > 100 ? 1.20M : 1);
+        const decimal giftBase = 100;
+        const decimal giftPercentage = 0.2M;
+        public SuperUser()
+            : base(giftBase, giftPercentage)
+        {            
+        }
     }
 }

@@ -6,7 +6,11 @@ namespace Sat.Recruitment.Domain.Entities
 {
     public class PremiumUser : User
     {
-        protected override void SetMoney(decimal money)
-            => this.money = money * (money > 100 ? 2 : 1);
+        const decimal giftBase = 100;
+        const decimal giftPercentage = 2M;
+        public PremiumUser()
+            : base(giftBase, giftPercentage)
+        {
+        }
     }
 }

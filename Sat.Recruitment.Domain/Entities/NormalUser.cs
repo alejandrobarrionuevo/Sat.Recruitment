@@ -6,16 +6,16 @@ namespace Sat.Recruitment.Domain.Entities
 {
     public class NormalUser : User
     {
-        protected override void SetMoney(decimal money)
+        public override void AddGift()
         {
             var percentage = 1M;
 
-            if (money > 100)
+            if (Money > 100)
                 percentage = 1.12M;
-            else if (money > 10)
+            else if (Money > 10)
                 percentage = 1.08M;
 
-            this.money = money * percentage;
+            Money *= percentage;
         }
     }
 }
